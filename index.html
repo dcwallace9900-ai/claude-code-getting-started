@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Getting Started Guide</title>
+    <style>
+        /* California Beaches Color Palette */
+        :root {
+            /* Sandy Tones */
+            --sand-light: #F9D199;
+            --sand-medium: #FDD8B5;
+            --sand-warm: #F6E3D4;
+            --sand-dark: #D6B59D;
+            
+            /* Blue Tones */
+            --blue-light: #BBDBF7;
+            --blue-medium: #92C4EE;
+            --blue-bright: #64ABE3;
+            --blue-deep: #01688D;
+            
+            /* Neutral Colors */
+            --text-primary: #2c3e50;
+            --text-secondary: #5d6d7e;
+            --white: #ffffff;
+            --gray-light: #f8f9fa;
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--sand-light) 0%, var(--blue-light) 100%);
+            min-height: 100vh;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--blue-deep);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--blue-deep);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--blue-bright);
+            padding-left: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--blue-deep);
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Container and Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            background: var(--white);
+            margin-bottom: 3rem;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--sand-medium);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-bright) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            margin-bottom: 3rem;
+            border-radius: 15px;
+        }
+
+        .header h1 {
+            color: var(--white);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--sand-warm);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--blue-deep);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            background: var(--blue-bright);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        /* Code blocks */
+        code {
+            background: var(--sand-light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--blue-deep);
+            border: 1px solid var(--sand-dark);
+        }
+
+        pre {
+            background: var(--blue-deep);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 2px solid var(--blue-bright);
+        }
+
+        pre code {
+            background: none;
+            color: var(--white);
+            border: none;
+            padding: 0;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--blue-bright);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--blue-deep);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(100, 171, 227, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--sand-dark);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--sand-warm);
+        }
+
+        /* Info boxes */
+        .info-box {
+            background: linear-gradient(135deg, var(--sand-warm) 0%, var(--sand-medium) 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--blue-bright);
+            margin: 1rem 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #f39c12;
+            margin: 1rem 0;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin: 1rem 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--sand-medium);
+        }
+
+        th {
+            background: var(--blue-bright);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: var(--sand-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            pre {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--sand-medium);
+            border-radius: 50%;
+            border-top-color: var(--blue-bright);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--sand-medium);
+            border-radius: 3px;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--blue-bright), var(--blue-deep));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Claude Code Getting Started Guide</h1>
+            <p class="subtitle">Build a professional portfolio website with Claude Code in under an hour</p>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#prerequisites">Prerequisites</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#first-project">First Project</a></li>
+                <li><a href="#ide-integration">IDE Integration</a></li>
+                <li><a href="#git-deployment">Git & GitHub</a></li>
+                <li><a href="#next-steps">Next Steps</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#best-practices">Best Practices</a></li>
+                <li><a href="#success-metrics">Success Metrics</a></li>
+                <li><a href="#help">Getting Help</a></li>
+            </ul>
+        </nav>
+
+        <!-- Introduction Section -->
+        <section id="introduction" class="section">
+            <h2>Introduction</h2>
+            <p>Welcome to the Claude Code Getting Started Guide! In this comprehensive tutorial, you'll learn how to build a professional portfolio website using Claude Code, Anthropic's powerful AI coding assistant.</p>
+            
+            <h3>What You'll Build</h3>
+            <ul>
+                <li>A responsive portfolio website with modern design</li>
+                <li>Professional HTML5, CSS3, and JavaScript code</li>
+                <li>Mobile-first responsive layout</li>
+                <li>Interactive elements and animations</li>
+                <li>Contact form functionality</li>
+                <li>Optimized for performance and SEO</li>
+            </ul>
+
+            <div class="info-box">
+                <h3>Project Details</h3>
+                <table>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Details</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Estimated Time</strong></td>
+                        <td>45-60 minutes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Skill Level</strong></td>
+                        <td>Beginner to Intermediate</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Technologies</strong></td>
+                        <td>HTML5, CSS3, JavaScript, Git, GitHub Pages</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tools Required</strong></td>
+                        <td>Claude Code, Git, Code Editor (optional), Web Browser</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Prerequisites Section -->
+        <section id="prerequisites" class="section">
+            <h2>Prerequisites</h2>
+            
+            <h3>System Requirements</h3>
+            <ul>
+                <li><strong>Operating System:</strong> Windows 10+, macOS 10.15+, or Linux (Ubuntu 18.04+)</li>
+                <li><strong>Terminal/Command Line:</strong> PowerShell (Windows), Terminal (macOS/Linux)</li>
+                <li><strong>Internet Connection:</strong> Required for downloading tools and deploying</li>
+                <li><strong>Web Browser:</strong> Chrome, Firefox, Safari, or Edge (latest versions)</li>
+            </ul>
+
+            <h3>Required Accounts</h3>
+            <ul>
+                <li><strong>Anthropic Account:</strong> Sign up at <a href="https://claude.ai" target="_blank">claude.ai</a></li>
+                <li><strong>GitHub Account:</strong> Sign up at <a href="https://github.com" target="_blank">github.com</a></li>
+            </ul>
+
+            <h3>Verify Your Setup</h3>
+            <p>Before proceeding, verify you have the necessary tools installed:</p>
+            
+            <h4>Check Git Installation</h4>
+            <pre><code># Check if Git is installed
+git --version
+
+# Expected output: git version 2.x.x</code></pre>
+
+            <h4>Check Node.js (Optional but Recommended)</h4>
+            <pre><code># Check if Node.js is installed
+node --version
+npm --version
+
+# Expected output: v18.x.x or higher</code></pre>
+
+            <div class="info-box">
+                <strong>Note:</strong> If Git is not installed, download it from <a href="https://git-scm.com" target="_blank">git-scm.com</a>. Node.js is optional but recommended for local development servers.
+            </div>
+        </section>
+
+        <!-- Installation & Setup Section -->
+        <section id="installation" class="section">
+            <h2>Installation & Setup</h2>
+            
+            <h3>Step 1: Install Claude Code</h3>
+            
+            <h4>macOS/Linux Installation</h4>
+            <pre><code># Install using curl
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Or using npm (if you have Node.js)
+npm install -g @anthropic/claude-code</code></pre>
+
+            <h4>Windows Installation</h4>
+            <pre><code># Using PowerShell
+iwr https://claude.ai/install.ps1 | iex
+
+# Or using npm (if you have Node.js)
+npm install -g @anthropic/claude-code</code></pre>
+
+            <h3>Step 2: Verify Installation</h3>
+            <pre><code># Verify Claude Code is installed
+claude --version
+
+# Expected output: claude-code v1.x.x</code></pre>
+
+            <h3>Step 3: Authentication</h3>
+            <ol>
+                <li>Go to <a href="https://claude.ai" target="_blank">claude.ai</a> and sign in</li>
+                <li>Navigate to your account settings</li>
+                <li>Generate an API key for Claude Code</li>
+                <li>Authenticate Claude Code:</li>
+            </ol>
+
+            <pre><code># Authenticate with your API key
+claude auth login
+
+# Follow the prompts to enter your API key</code></pre>
+
+            <div class="success-box">
+                <strong>Success!</strong> You should see a confirmation message that Claude Code is authenticated and ready to use.
+            </div>
+        </section>
+
+        <!-- Your First Project Section -->
+        <section id="first-project" class="section">
+            <h2>Your First Project</h2>
+            
+            <h3>Step 1: Create Project Directory</h3>
+            <pre><code># Create and navigate to your project directory
+mkdir my-portfolio
+cd my-portfolio
+
+# Initialize the directory
+claude init</code></pre>
+
+            <h3>Step 2: Generate Your Portfolio</h3>
+            <p>Use this specific prompt with Claude Code to generate a professional portfolio:</p>
+            
+            <pre><code>claude create "Build me a professional portfolio website with the following specifications:
+
+1. Modern, responsive design with clean aesthetics
+2. Header with navigation menu (Home, About, Projects, Contact)
+3. Hero section with personal introduction and call-to-action
+4. About section with skills and experience
+5. Projects section showcasing 3 sample projects with descriptions
+6. Contact section with a working contact form
+7. Footer with social media links
+8. Mobile-first responsive design
+9. Smooth scrolling and subtle animations
+10. SEO optimized with proper meta tags
+11. Use a professional color scheme (blues and grays)
+12. Include placeholder content that I can easily customize
+
+Please create this as a complete website with HTML, CSS, and JavaScript in separate files."</code></pre>
+
+            <h3>Step 3: Review Generated Files</h3>
+            <p>Claude Code will generate the following structure:</p>
+            <pre><code>my-portfolio/
+   index.html          # Main HTML file
+   styles.css          # Stylesheet
+   script.js           # JavaScript functionality
+   assets/             # Images and resources
+      placeholder-images/
+   README.md           # Project documentation</code></pre>
+
+            <h3>Step 4: Test Your Website</h3>
+            <pre><code># Start a local development server
+claude serve
+
+# Or use Python if available
+python -m http.server 8000
+
+# Or use Node.js if available
+npx serve .</code></pre>
+
+            <p>Open your browser and navigate to <code>http://localhost:8000</code> to view your portfolio.</p>
+
+            <div class="info-box">
+                <strong>Tip:</strong> Take screenshots of your website on different devices to document your progress!
+            </div>
+        </section>
+
+        <!-- IDE Integration Section -->
+        <section id="ide-integration" class="section">
+            <h2>Adding IDE Integration</h2>
+            
+            <h3>Install Cursor IDE</h3>
+            <ol>
+                <li>Download Cursor from <a href="https://cursor.sh" target="_blank">cursor.sh</a></li>
+                <li>Install the application on your system</li>
+                <li>Open Cursor and navigate to your project folder</li>
+            </ol>
+
+            <h3>Connect Claude Code to Cursor</h3>
+            <pre><code># In your project directory
+claude integrate cursor
+
+# This will configure Cursor to work with Claude Code</code></pre>
+
+            <h3>Verify Integration</h3>
+            <ol>
+                <li>Open your project in Cursor</li>
+                <li>Look for the Claude Code extension in the extensions panel</li>
+                <li>Try using Ctrl+Shift+P (Cmd+Shift+P on Mac) and search for "Claude"</li>
+                <li>You should see Claude Code commands available</li>
+            </ol>
+
+            <h3>Using Claude in Cursor</h3>
+            <ul>
+                <li><strong>Ctrl+K</strong>: Quick Claude Code command</li>
+                <li><strong>Ctrl+Shift+K</strong>: Open Claude Code chat panel</li>
+                <li><strong>Right-click</strong>: Context menu with Claude options</li>
+            </ul>
+
+            <div class="success-box">
+                <strong>Pro Tip:</strong> Use Claude directly in Cursor to make real-time edits and improvements to your portfolio!
+            </div>
+        </section>
+
+        <!-- Git & GitHub Deployment Section -->
+        <section id="git-deployment" class="section">
+            <h2>Git & GitHub Deployment</h2>
+            
+            <h3>Step 1: Initialize Git Repository</h3>
+            <pre><code># Initialize Git in your project directory
+git init
+
+# Add all files to staging
+git add .
+
+# Make your first commit
+git commit -m "Initial commit: Create portfolio website
+
+- Add responsive HTML structure
+- Implement modern CSS styling
+- Include interactive JavaScript features
+- Set up project documentation"</code></pre>
+
+            <h3>Step 2: Create GitHub Repository</h3>
+            <ol>
+                <li>Go to <a href="https://github.com" target="_blank">GitHub.com</a> and sign in</li>
+                <li>Click the "+" icon and select "New repository"</li>
+                <li>Repository name: <code>my-portfolio</code></li>
+                <li>Description: "Professional portfolio website built with Claude Code"</li>
+                <li>Set to Public (required for GitHub Pages)</li>
+                <li>Do NOT initialize with README (you already have files)</li>
+                <li>Click "Create repository"</li>
+            </ol>
+
+            <h3>Step 3: Generate Personal Access Token</h3>
+            <ol>
+                <li>Go to GitHub Settings ’ Developer settings ’ Personal access tokens</li>
+                <li>Click "Generate new token (classic)"</li>
+                <li>Name: "Claude Code Portfolio"</li>
+                <li>Expiration: 90 days (or as needed)</li>
+                <li>Select scopes: <code>repo</code>, <code>workflow</code></li>
+                <li>Click "Generate token"</li>
+                <li><strong>Important:</strong> Copy the token immediately (you won't see it again)</li>
+            </ol>
+
+            <h3>Step 4: Push to GitHub</h3>
+            <pre><code># Add remote repository (replace YOUR_USERNAME with your GitHub username)
+git remote add origin https://github.com/YOUR_USERNAME/my-portfolio.git
+
+# Push your code to GitHub
+git branch -M main
+git push -u origin main
+
+# When prompted for password, use your Personal Access Token</code></pre>
+
+            <h3>Step 5: Enable GitHub Pages</h3>
+            <ol>
+                <li>Go to your repository on GitHub</li>
+                <li>Click on "Settings" tab</li>
+                <li>Scroll down to "Pages" section</li>
+                <li>Under "Source", select "Deploy from a branch"</li>
+                <li>Branch: <code>main</code>, Folder: <code>/ (root)</code></li>
+                <li>Click "Save"</li>
+            </ol>
+
+            <div class="success-box">
+                <strong><‰ Congratulations!</strong> Your portfolio is now live at: <br>
+                <code>https://YOUR_USERNAME.github.io/my-portfolio</code>
+            </div>
+
+            <h3>Making Updates</h3>
+            <p>To update your live website:</p>
+            <pre><code># Make your changes, then:
+git add .
+git commit -m "Update portfolio content"
+git push
+
+# Changes will appear on your live site within a few minutes</code></pre>
+        </section>
+
+        <!-- Next Steps Section -->
+        <section id="next-steps" class="section">
+            <h2>Next Steps & Advanced Features</h2>
+            
+            <h3>Customize Your Portfolio</h3>
+            <ul>
+                <li><strong>Personal Content:</strong> Replace placeholder text with your actual information</li>
+                <li><strong>Projects:</strong> Add your real projects with screenshots and descriptions</li>
+                <li><strong>Branding:</strong> Customize colors, fonts, and styling to match your personal brand</li>
+                <li><strong>Images:</strong> Add professional headshot and project images</li>
+                <li><strong>Resume:</strong> Add a downloadable PDF resume link</li>
+            </ul>
+
+            <h3>Advanced Claude Code Features</h3>
+            <ul>
+                <li><strong>Component Generation:</strong> <code>claude create component "contact-form"</code></li>
+                <li><strong>Code Refactoring:</strong> <code>claude refactor "improve performance"</code></li>
+                <li><strong>Bug Fixing:</strong> <code>claude fix "responsive layout issues"</code></li>
+                <li><strong>Testing:</strong> <code>claude test "add unit tests"</code></li>
+                <li><strong>Documentation:</strong> <code>claude document "add code comments"</code></li>
+            </ul>
+
+            <h3>Project Ideas to Try Next</h3>
+            <ol>
+                <li><strong>Blog Website:</strong> Create a personal blog with multiple pages</li>
+                <li><strong>E-commerce Store:</strong> Build a simple online store interface</li>
+                <li><strong>Dashboard App:</strong> Create a data visualization dashboard</li>
+                <li><strong>Landing Page:</strong> Design a product landing page</li>
+                <li><strong>Web Application:</strong> Build a todo app or calculator</li>
+            </ol>
+
+            <div class="info-box">
+                <h4>Recommended Learning Path</h4>
+                <ol>
+                    <li>Master the basics with your portfolio (you're here!)</li>
+                    <li>Learn advanced CSS with animations and layouts</li>
+                    <li>Explore JavaScript frameworks (React, Vue)</li>
+                    <li>Backend development with Node.js</li>
+                    <li>Database integration and full-stack apps</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Troubleshooting Section -->
+        <section id="troubleshooting" class="section">
+            <h2>Troubleshooting</h2>
+            
+            <h3>Installation Issues</h3>
+            
+            <h4>Claude Code Not Found</h4>
+            <div class="warning-box">
+                <strong>Problem:</strong> <code>claude: command not found</code><br>
+                <strong>Solutions:</strong>
+                <ul>
+                    <li>Restart your terminal/command prompt</li>
+                    <li>Check PATH environment variable: <code>echo $PATH</code></li>
+                    <li>Reinstall Claude Code using the installer</li>
+                    <li>Try using the full path: <code>/usr/local/bin/claude</code></li>
+                </ul>
+            </div>
+
+            <h4>Permission Denied Errors</h4>
+            <div class="warning-box">
+                <strong>Problem:</strong> Permission denied during installation<br>
+                <strong>Solutions:</strong>
+                <ul>
+                    <li>Windows: Run PowerShell as Administrator</li>
+                    <li>macOS/Linux: Use <code>sudo</code> if necessary</li>
+                    <li>Check folder permissions: <code>ls -la</code></li>
+                </ul>
+            </div>
+
+            <h3>Authentication Problems</h3>
+            
+            <h4>Invalid API Key</h4>
+            <div class="warning-box">
+                <strong>Problem:</strong> Authentication failed<br>
+                <strong>Solutions:</strong>
+                <ul>
+                    <li>Generate a new API key from claude.ai</li>
+                    <li>Clear cached credentials: <code>claude auth logout</code></li>
+                    <li>Re-authenticate: <code>claude auth login</code></li>
+                    <li>Check for typos in the API key</li>
+                </ul>
+            </div>
+
+            <h3>Git & GitHub Issues</h3>
+            
+            <h4>Remote Repository Errors</h4>
+            <div class="warning-box">
+                <strong>Problem:</strong> <code>fatal: remote origin already exists</code><br>
+                <strong>Solution:</strong> <code>git remote remove origin</code> then add it again
+            </div>
+
+            <h4>Authentication Failed (GitHub)</h4>
+            <div class="warning-box">
+                <strong>Problem:</strong> GitHub push authentication failed<br>
+                <strong>Solutions:</strong>
+                <ul>
+                    <li>Use Personal Access Token instead of password</li>
+                    <li>Update GitHub credentials: <code>git config --global user.name "Your Name"</code></li>
+                    <li>Check token permissions include 'repo' scope</li>
+                </ul>
+            </div>
+
+            <h3>Cursor Integration Issues</h3>
+            
+            <h4>Extension Not Working</h4>
+            <div class="warning-box">
+                <strong>Problem:</strong> Claude Code extension not appearing in Cursor<br>
+                <strong>Solutions:</strong>
+                <ul>
+                    <li>Restart Cursor completely</li>
+                    <li>Check extensions panel for Claude Code</li>
+                    <li>Reinstall the extension</li>
+                    <li>Update Cursor to latest version</li>
+                </ul>
+            </div>
+
+            <h3>Development Server Issues</h3>
+            
+            <h4>Port Already in Use</h4>
+            <div class="warning-box">
+                <strong>Problem:</strong> <code>Error: Port 8000 is already in use</code><br>
+                <strong>Solutions:</strong>
+                <ul>
+                    <li>Use a different port: <code>python -m http.server 8080</code></li>
+                    <li>Find and kill the process: <code>lsof -i :8000</code></li>
+                    <li>Try <code>claude serve --port 3000</code></li>
+                </ul>
+            </div>
+
+            <h4>Website Not Loading</h4>
+            <div class="warning-box">
+                <strong>Problem:</strong> Blank page or 404 error<br>
+                <strong>Solutions:</strong>
+                <ul>
+                    <li>Check file names: <code>index.html</code> (not <code>Index.html</code>)</li>
+                    <li>Verify you're in the correct directory</li>
+                    <li>Check browser console for errors (F12)</li>
+                    <li>Try hard refresh: Ctrl+Shift+R (Cmd+Shift+R on Mac)</li>
+                </ul>
+            </div>
+
+            <h3>GitHub Pages Issues</h3>
+            
+            <h4>Site Not Updating</h4>
+            <div class="warning-box">
+                <strong>Problem:</strong> Changes not appearing on live site<br>
+                <strong>Solutions:</strong>
+                <ul>
+                    <li>Wait 5-10 minutes for deployment</li>
+                    <li>Check Actions tab for build status</li>
+                    <li>Clear browser cache</li>
+                    <li>Verify files were pushed to GitHub</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <strong>Still Need Help?</strong> Don't worry! Check the <a href="#help">Getting Help</a> section below for additional resources and community support.
+            </div>
+        </section>
+
+        <!-- Best Practices Section -->
+        <section id="best-practices" class="section">
+            <h2>Best Practices & Tips</h2>
+            
+            <h3>Collaborating with Claude Code</h3>
+            
+            <h4>Effective Prompting</h4>
+            <ul>
+                <li><strong>Be Specific:</strong> Include exact requirements, colors, layouts, and functionality</li>
+                <li><strong>Provide Context:</strong> Mention the project type, target audience, and goals</li>
+                <li><strong>Request Explanations:</strong> Ask Claude to explain the code it generates</li>
+                <li><strong>Iterate Gradually:</strong> Make small improvements rather than large changes</li>
+            </ul>
+
+            <h4>Best Prompt Examples</h4>
+            <pre><code># Good: Specific and detailed
+"Add a dark mode toggle to the portfolio with smooth transitions,
+storing the preference in localStorage, and using CSS custom properties"
+
+# Avoid: Too vague
+"Make it look better"</code></pre>
+
+            <h3>Professional Development Workflow</h3>
+            
+            <h4>Version Control Best Practices</h4>
+            <ul>
+                <li><strong>Commit Often:</strong> Make small, focused commits with clear messages</li>
+                <li><strong>Use Branches:</strong> Create feature branches for new functionality</li>
+                <li><strong>Write Good Commit Messages:</strong> Describe what and why, not just what</li>
+                <li><strong>Review Before Committing:</strong> Check your changes with <code>git diff</code></li>
+            </ul>
+
+            <h4>Code Quality Standards</h4>
+            <ul>
+                <li><strong>Consistent Formatting:</strong> Use consistent indentation and spacing</li>
+                <li><strong>Meaningful Names:</strong> Use descriptive variable and function names</li>
+                <li><strong>Comments:</strong> Add comments for complex logic</li>
+                <li><strong>Performance:</strong> Optimize images and minimize code</li>
+            </ul>
+
+            <h3>Security & Best Practices</h3>
+            
+            <h4>Protecting Sensitive Information</h4>
+            <ul>
+                <li><strong>Never commit API keys</strong> or passwords to version control</li>
+                <li><strong>Use .gitignore</strong> for sensitive files</li>
+                <li><strong>Use environment variables</strong> for configuration</li>
+                <li><strong>Regularly rotate access tokens</strong></li>
+            </ul>
+
+            <h4>Performance Optimization</h4>
+            <ul>
+                <li><strong>Optimize Images:</strong> Use WebP format and appropriate sizes</li>
+                <li><strong>Minimize HTTP Requests:</strong> Combine CSS and JS files</li>
+                <li><strong>Use CDNs:</strong> For fonts and common libraries</li>
+                <li><strong>Enable Compression:</strong> Gzip your assets</li>
+            </ul>
+
+            <div class="success-box">
+                <h4>Pro Developer Tips</h4>
+                <ul>
+                    <li><strong>Test Early:</strong> View your site on different devices regularly</li>
+                    <li><strong>Use Browser DevTools:</strong> Master the inspector and console</li>
+                    <li><strong>Learn Keyboard Shortcuts:</strong> Speed up your development</li>
+                    <li><strong>Stay Updated:</strong> Follow web development trends and best practices</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Success Metrics Section -->
+        <section id="success-metrics" class="section">
+            <h2>Success Metrics</h2>
+            
+            <p>You'll know you've successfully completed this guide when you can check off all these items:</p>
+
+            <h3>Technical Achievements</h3>
+            <div class="success-box">
+                <h4> Installation & Setup</h4>
+                <ul>
+                    <li>Claude Code installed and authenticated</li>
+                    <li>Git configured with your information</li>
+                    <li>GitHub account set up with Personal Access Token</li>
+                    <li>Cursor IDE integrated (optional but recommended)</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h4> Portfolio Website</h4>
+                <ul>
+                    <li>Professional portfolio website generated</li>
+                    <li>Responsive design working on mobile and desktop</li>
+                    <li>All sections complete (header, about, projects, contact)</li>
+                    <li>Interactive elements functioning (navigation, forms)</li>
+                    <li>Clean, professional design with good UX</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h4> Deployment & Version Control</h4>
+                <ul>
+                    <li>Git repository initialized with proper commit history</li>
+                    <li>Code pushed to GitHub successfully</li>
+                    <li>GitHub Pages enabled and website live</li>
+                    <li>Public URL accessible: <code>https://username.github.io/my-portfolio</code></li>
+                </ul>
+            </div>
+
+            <h3>Learning Outcomes</h3>
+            <div class="info-box">
+                <h4><¯ Knowledge Gained</h4>
+                <ul>
+                    <li><strong>Claude Code Proficiency:</strong> Comfortable generating and modifying code</li>
+                    <li><strong>Git Workflow:</strong> Understanding of version control basics</li>
+                    <li><strong>GitHub Pages:</strong> Knowledge of free web hosting</li>
+                    <li><strong>Web Development:</strong> Basic understanding of HTML, CSS, JavaScript</li>
+                    <li><strong>Professional Tools:</strong> Experience with modern development workflow</li>
+                </ul>
+            </div>
+
+            <h3>Quality Checklist</h3>
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>Criteria</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td><strong>Responsive Design</strong></td>
+                    <td>Works well on mobile, tablet, and desktop</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Performance</strong></td>
+                    <td>Loads quickly (under 3 seconds)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Accessibility</strong></td>
+                    <td>Proper headings, alt text, contrast</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>SEO</strong></td>
+                    <td>Meta tags, proper structure, semantic HTML</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Cross-Browser</strong></td>
+                    <td>Works in Chrome, Firefox, Safari, Edge</td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <div class="warning-box">
+                <h4>=¨ Common Completion Blockers</h4>
+                <ul>
+                    <li><strong>GitHub Pages not loading:</strong> Check repository settings and file names</li>
+                    <li><strong>Responsive issues:</strong> Test on actual devices, not just browser resize</li>
+                    <li><strong>Missing content:</strong> Ensure all placeholder content is meaningful</li>
+                    <li><strong>Broken links:</strong> Verify all navigation and external links work</li>
+                </ul>
+            </div>
+
+            <h3>Celebration Time! <‰</h3>
+            <p>Once you've achieved all the success metrics above, you've successfully:</p>
+            <ul>
+                <li>Built your first professional website with AI assistance</li>
+                <li>Learned modern web development workflows</li>
+                <li>Created a portfolio that showcases your new skills</li>
+                <li>Set up a foundation for future web development projects</li>
+            </ul>
+
+            <p><strong>Share your success!</strong> Take a screenshot of your live portfolio and share it on social media with #ClaudeCodePortfolio</p>
+        </section>
+
+        <!-- Getting Help Section -->
+        <section id="help" class="section">
+            <h2>Getting Help</h2>
+            
+            <p>If you encounter issues or need additional support, here are the best resources:</p>
+
+            <h3>Official Resources</h3>
+            <ul>
+                <li><strong>Claude Code Documentation:</strong> <a href="https://docs.anthropic.com/claude-code" target="_blank">docs.anthropic.com/claude-code</a></li>
+                <li><strong>Anthropic Support:</strong> <a href="https://support.anthropic.com" target="_blank">support.anthropic.com</a></li>
+                <li><strong>GitHub Issues:</strong> <a href="https://github.com/anthropics/claude-code/issues" target="_blank">Report bugs and feature requests</a></li>
+            </ul>
+
+            <h3>Community Support</h3>
+            <ul>
+                <li><strong>Discord Community:</strong> Join the Claude Code Discord server</li>
+                <li><strong>Reddit:</strong> r/ClaudeCode and r/webdev communities</li>
+                <li><strong>Stack Overflow:</strong> Tag your questions with #claude-code</li>
+            </ul>
+
+            <h3>Learning Resources</h3>
+            <ul>
+                <li><strong>MDN Web Docs:</strong> <a href="https://developer.mozilla.org" target="_blank">Comprehensive web development reference</a></li>
+                <li><strong>Git Tutorial:</strong> <a href="https://learngitbranching.js.org" target="_blank">Interactive Git learning</a></li>
+                <li><strong>GitHub Docs:</strong> <a href="https://docs.github.com" target="_blank">GitHub features and workflows</a></li>
+                <li><strong>Web.dev:</strong> <a href="https://web.dev" target="_blank">Google's web development resources</a></li>
+            </ul>
+
+            <h3>Quick Help Commands</h3>
+            <pre><code># Get Claude Code help
+claude --help
+
+# Check system status
+claude status
+
+# View current configuration
+claude config list
+
+# Reset configuration if needed
+claude config reset</code></pre>
+
+            <h3>Troubleshooting Checklist</h3>
+            <p>Before asking for help, try these steps:</p>
+            <ol>
+                <li>Check the <a href="#troubleshooting">Troubleshooting section</a> above</li>
+                <li>Restart your terminal/command prompt</li>
+                <li>Update Claude Code to the latest version: <code>claude update</code></li>
+                <li>Check your internet connection</li>
+                <li>Try the command in a different directory</li>
+            </ol>
+
+            <h3>When Asking for Help</h3>
+            <p>To get the best help, include:</p>
+            <ul>
+                <li><strong>Operating System:</strong> Windows/macOS/Linux version</li>
+                <li><strong>Claude Code Version:</strong> Output of <code>claude --version</code></li>
+                <li><strong>Full Error Message:</strong> Copy the complete error text</li>
+                <li><strong>Steps to Reproduce:</strong> What you were trying to do</li>
+                <li><strong>Screenshots:</strong> If relevant to the issue</li>
+            </ul>
+
+            <div class="info-box">
+                <h4>Remember</h4>
+                <p>Every developer encounters challenges! The key is knowing where to look for help and how to ask good questions. The web development community is generally very helpful and welcoming to newcomers.</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Progress Bar Functionality
+        function updateProgressBar() {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressFill').style.width = scrolled + '%';
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Highlight active navigation item
+        function highlightActiveNavItem() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav a');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.style.background = '';
+                    link.style.color = '';
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.style.background = 'var(--blue-bright)';
+                        link.style.color = 'var(--white)';
+                    }
+                });
+            });
+        }
+
+        // Copy code to clipboard functionality
+        function setupCodeCopyButtons() {
+            document.querySelectorAll('pre').forEach(pre => {
+                const button = document.createElement('button');
+                button.textContent = 'Copy';
+                button.className = 'btn btn-secondary';
+                button.style.position = 'absolute';
+                button.style.top = '10px';
+                button.style.right = '10px';
+                button.style.fontSize = '0.8rem';
+                button.style.padding = '0.25rem 0.5rem';
+                
+                pre.style.position = 'relative';
+                pre.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code').textContent;
+                    navigator.clipboard.writeText(code).then(() => {
+                        button.textContent = 'Copied!';
+                        button.style.background = 'var(--sand-dark)';
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.style.background = '';
+                        }, 2000);
+                    });
+                });
+            });
+        }
+
+        // Initialize all functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            setupSmoothScrolling();
+            highlightActiveNavItem();
+            setupCodeCopyButtons();
+            
+            // Update progress bar on scroll
+            window.addEventListener('scroll', updateProgressBar);
+            
+            // Initial progress bar update
+            updateProgressBar();
+            
+            console.log('<‰ Claude Code Getting Started Guide loaded successfully!');
+            console.log('Happy coding! =€');
+        });
+
+        // Easter egg: Konami code
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            if (konamiCode.toString() === konamiSequence.toString()) {
+                document.body.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24, #6c5ce7, #fd79a8)';
+                document.body.style.backgroundSize = '400% 400%';
+                document.body.style.animation = 'gradientShift 3s ease infinite';
+                
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes gradientShift {
+                        0% { background-position: 0% 50%; }
+                        50% { background-position: 100% 50%; }
+                        100% { background-position: 0% 50%; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                setTimeout(() => {
+                    location.reload();
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
