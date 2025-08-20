@@ -1,0 +1,406 @@
+/* 
+=================================================================
+PROFESSIONAL PORTFOLIO COLOR SCHEME TRANSFORMATION
+=================================================================
+
+This CSS module transforms a bright, color-blocked design into a 
+sophisticated, modern, and professional dark theme suitable for 
+portfolio websites.
+
+Design Philosophy:
+- Deep, sophisticated base colors for elegance
+- High contrast for optimal readability
+- Subtle accent color for interactive elements
+- Professional appearance that impresses clients
+
+Color Palette:
+- Base: Deep charcoal and rich navy tones
+- Text: Clean whites and light grays
+- Accent: Warm bronze/gold for sophistication
+- Interactive: Enhanced contrast for usability
+
+=================================================================
+*/
+
+/* 
+-----------------------------------------------------------------
+COLOR VARIABLE DEFINITIONS
+-----------------------------------------------------------------
+Professional color palette replacing bright beach theme
+*/
+:root {
+    /* === PRIMARY BASE COLORS === */
+    /* Deep, sophisticated backgrounds */
+    --primary-dark: #1a1d23;        /* Deep charcoal - main background */
+    --secondary-dark: #252a31;      /* Lighter charcoal - sections */
+    --tertiary-dark: #2d3339;       /* Card backgrounds */
+    --navy-deep: #1e2a3a;           /* Deep navy - headers */
+    --navy-medium: #243447;         /* Medium navy - navigation */
+    
+    /* === TEXT COLORS === */
+    /* Clean, readable text hierarchy */
+    --text-primary: #f8f9fa;        /* Primary white text */
+    --text-secondary: #e9ecef;      /* Secondary light gray */
+    --text-muted: #adb5bd;          /* Muted text for less important content */
+    --text-disabled: #6c757d;       /* Disabled/placeholder text */
+    
+    /* === ACCENT COLORS === */
+    /* Sophisticated bronze/gold accent system */
+    --accent-primary: #d4af37;      /* Warm gold - primary accent */
+    --accent-secondary: #b8941f;    /* Deeper gold - hover states */
+    --accent-light: #e6c757;        /* Light gold - highlights */
+    --accent-muted: #8b7355;        /* Muted bronze - subtle accents */
+    
+    /* === INTERACTIVE STATES === */
+    /* Enhanced contrast for buttons and links */
+    --interactive-primary: #d4af37;  /* Default interactive color */
+    --interactive-hover: #e6c757;    /* Hover state */
+    --interactive-active: #b8941f;   /* Active/pressed state */
+    --interactive-focus: #f0d875;    /* Focus state for accessibility */
+    
+    /* === SEMANTIC COLORS === */
+    /* Status and feedback colors */
+    --success: #28a745;              /* Success green */
+    --warning: #ffc107;              /* Warning amber */
+    --error: #dc3545;                /* Error red */
+    --info: #17a2b8;                 /* Info blue */
+    
+    /* === BORDER & DIVIDER COLORS === */
+    --border-primary: #495057;       /* Main borders */
+    --border-secondary: #3a3f46;     /* Subtle dividers */
+    --border-accent: #d4af37;        /* Accent borders */
+    
+    /* === SHADOW & OVERLAY COLORS === */
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.25);
+    --shadow-heavy: rgba(0, 0, 0, 0.5);
+    --overlay-dark: rgba(26, 29, 35, 0.9);
+}
+
+/* 
+-----------------------------------------------------------------
+BACKGROUND COLOR APPLICATIONS
+-----------------------------------------------------------------
+Transform bright backgrounds to sophisticated dark theme
+*/
+
+/* Main page background - deep charcoal gradient */
+body {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--navy-deep) 100%);
+    color: var(--text-primary);
+}
+
+/* Section backgrounds - layered dark tones */
+.section {
+    background: var(--secondary-dark);
+    border: 1px solid var(--border-secondary);
+}
+
+/* Header background - dramatic navy gradient */
+.header {
+    background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-medium) 100%);
+    color: var(--text-primary);
+}
+
+/* Navigation background - warm dark tone */
+.nav {
+    background: var(--tertiary-dark);
+    border: 1px solid var(--border-primary);
+}
+
+/* Card and info box backgrounds */
+.info-box {
+    background: linear-gradient(135deg, var(--tertiary-dark) 0%, var(--secondary-dark) 100%);
+    border-left: 4px solid var(--accent-primary);
+}
+
+.warning-box {
+    background: linear-gradient(135deg, var(--tertiary-dark) 0%, var(--secondary-dark) 100%);
+    border-left: 4px solid var(--warning);
+}
+
+.success-box {
+    background: linear-gradient(135deg, var(--tertiary-dark) 0%, var(--secondary-dark) 100%);
+    border-left: 4px solid var(--success);
+}
+
+/* Code block backgrounds */
+code {
+    background: var(--tertiary-dark);
+    color: var(--accent-light);
+    border: 1px solid var(--border-primary);
+}
+
+pre {
+    background: var(--primary-dark);
+    color: var(--text-secondary);
+    border: 2px solid var(--accent-muted);
+}
+
+pre code {
+    background: none;
+    color: var(--text-secondary);
+    border: none;
+}
+
+/* 
+-----------------------------------------------------------------
+TEXT COLOR APPLICATIONS
+-----------------------------------------------------------------
+Professional text hierarchy with optimal contrast
+*/
+
+/* Primary headings - clean white */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+}
+
+/* Section titles with accent borders */
+h2 {
+    border-left: 4px solid var(--accent-primary);
+}
+
+/* Body text - readable light gray */
+p, li {
+    color: var(--text-secondary);
+}
+
+/* Muted text for less important content */
+.text-muted, 
+small {
+    color: var(--text-muted);
+}
+
+/* Subtitle styling */
+.subtitle {
+    color: var(--text-primary);
+}
+
+/* 
+-----------------------------------------------------------------
+INTERACTIVE ELEMENT COLORS
+-----------------------------------------------------------------
+Sophisticated accent colors for buttons, links, and interactions
+*/
+
+/* Primary buttons - warm gold accent */
+.btn {
+    background: var(--interactive-primary);
+    color: var(--primary-dark);
+    border: none;
+}
+
+.btn:hover {
+    background: var(--interactive-hover);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+.btn:active {
+    background: var(--interactive-active);
+}
+
+/* Secondary buttons - subtle dark theme */
+.btn-secondary {
+    background: var(--tertiary-dark);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+}
+
+.btn-secondary:hover {
+    background: var(--secondary-dark);
+    border-color: var(--accent-muted);
+}
+
+/* Navigation links - professional accent system */
+.nav a {
+    color: var(--text-secondary);
+    background: transparent;
+}
+
+.nav a:hover {
+    background: var(--accent-primary);
+    color: var(--primary-dark);
+}
+
+/* Regular links - subtle accent color */
+a {
+    color: var(--accent-light);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent-primary);
+    text-decoration: underline;
+}
+
+a:visited {
+    color: var(--accent-muted);
+}
+
+/* 
+-----------------------------------------------------------------
+TABLE STYLING
+-----------------------------------------------------------------
+Professional table appearance with dark theme
+*/
+
+/* Table structure */
+table {
+    background: var(--secondary-dark);
+    border: 1px solid var(--border-primary);
+}
+
+/* Table headers - accent color */
+th {
+    background: var(--accent-primary);
+    color: var(--primary-dark);
+}
+
+/* Table rows */
+td {
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+tr:hover {
+    background: var(--tertiary-dark);
+}
+
+/* 
+-----------------------------------------------------------------
+PROGRESS & LOADING ELEMENTS
+-----------------------------------------------------------------
+Sophisticated progress indicators
+*/
+
+/* Progress bar */
+.progress-bar {
+    background: var(--border-secondary);
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-light));
+}
+
+/* Loading spinner */
+.loading {
+    border: 3px solid var(--border-secondary);
+    border-top-color: var(--accent-primary);
+}
+
+/* 
+-----------------------------------------------------------------
+FORM ELEMENTS
+-----------------------------------------------------------------
+Professional form styling for dark theme
+*/
+
+/* Input fields */
+input, 
+textarea, 
+select {
+    background: var(--tertiary-dark);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+/* Placeholder text */
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-disabled);
+}
+
+/* 
+-----------------------------------------------------------------
+UTILITY CLASSES
+-----------------------------------------------------------------
+Additional color utilities for fine-tuning
+*/
+
+/* Background utilities */
+.bg-dark { background: var(--primary-dark); }
+.bg-darker { background: var(--secondary-dark); }
+.bg-accent { background: var(--accent-primary); }
+
+/* Text utilities */
+.text-light { color: var(--text-primary); }
+.text-muted { color: var(--text-muted); }
+.text-accent { color: var(--accent-primary); }
+
+/* Border utilities */
+.border-accent { border-color: var(--accent-primary); }
+.border-dark { border-color: var(--border-primary); }
+
+/* 
+-----------------------------------------------------------------
+RESPONSIVE CONSIDERATIONS
+-----------------------------------------------------------------
+Ensure colors work well across all device sizes
+*/
+
+@media (max-width: 768px) {
+    /* Enhance contrast on smaller screens */
+    .nav a {
+        background: var(--tertiary-dark);
+        border: 1px solid var(--border-secondary);
+        margin: 0.25rem 0;
+    }
+    
+    .nav a:hover {
+        background: var(--accent-primary);
+        border-color: var(--accent-primary);
+    }
+}
+
+/* 
+-----------------------------------------------------------------
+ACCESSIBILITY ENHANCEMENTS
+-----------------------------------------------------------------
+Ensure proper contrast ratios and focus states
+*/
+
+/* Enhanced focus indicators */
+*:focus {
+    outline: 2px solid var(--interactive-focus);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --text-primary: #ffffff;
+        --text-secondary: #f0f0f0;
+        --accent-primary: #ffdd44;
+        --border-primary: #888888;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+/* 
+=================================================================
+END OF PROFESSIONAL COLOR SCHEME
+=================================================================
+
+This CSS module provides a complete color transformation from 
+bright, distracting colors to a sophisticated, professional 
+dark theme that will impress clients and enhance the user experience.
+
+Usage: Include this CSS after your base styles to override 
+the existing color scheme while maintaining all layout and 
+structural elements.
+=================================================================
+*/
