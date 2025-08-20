@@ -102,11 +102,6 @@ body {
     color: var(--text-primary);
 }
 
-/* Navigation background - warm dark tone */
-.nav {
-    background: var(--tertiary-dark);
-    border: 1px solid var(--border-primary);
-}
 
 /* Card and info box backgrounds */
 .info-box {
@@ -211,16 +206,6 @@ Sophisticated accent colors for buttons, links, and interactions
     border-color: var(--accent-muted);
 }
 
-/* Navigation links - professional accent system */
-.nav a {
-    color: var(--text-secondary);
-    background: transparent;
-}
-
-.nav a:hover {
-    background: var(--accent-primary);
-    color: var(--primary-dark);
-}
 
 /* Regular links - subtle accent color */
 a {
@@ -346,17 +331,7 @@ Ensure colors work well across all device sizes
 */
 
 @media (max-width: 768px) {
-    /* Enhance contrast on smaller screens */
-    .nav a {
-        background: var(--tertiary-dark);
-        border: 1px solid var(--border-secondary);
-        margin: 0.25rem 0;
-    }
-    
-    .nav a:hover {
-        background: var(--accent-primary);
-        border-color: var(--accent-primary);
-    }
+    /* Enhanced mobile responsiveness */
 }
 
 /* 
