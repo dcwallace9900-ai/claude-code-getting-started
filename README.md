@@ -54,3 +54,16 @@ cd claude-code-getting-started
 open index.html  # Mac
 # or
 start index.html  # Windows
+
+📈 Future Enhancements
+
+ Add dark mode toggle
+ Implement blog post markdown support
+ Add syntax highlighting for code blocks
+ Create CI/CD pipeline for automated testing
+
+👨‍💻 Author
+Diana Wallace - Exploring human-AI collaboration in software development
+
+Built with Claude as part of my exploration into AI-assisted development workflows
+
